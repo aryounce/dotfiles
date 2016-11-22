@@ -1,0 +1,20 @@
+# Simple navigation and listings
+alias ..='cd ..'
+alias ...="cd ../.."
+alias -- -="cd -"
+alias dh='dirs -v'
+alias ll='ls -GalhF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# For when we're mucking with bash settings
+alias br='source ~/.bash_profile'
+
+# You know you do it too
+alias sduo='sudo'
+alias suod='sudo'
+
+# Shortcuts
+alias curl-get='curl -L -O'
+alias h='history'
+alias rot13='tr a-zA-Z n-za-mN-ZA-M'

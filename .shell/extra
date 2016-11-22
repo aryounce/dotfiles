@@ -1,0 +1,4 @@
+#
+# This file contains bash configurations (exports, aliases, etc) that should
+# not be published to github in my dotfiles repo.
+#
