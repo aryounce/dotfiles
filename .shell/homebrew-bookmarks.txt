@@ -1,0 +1,11 @@
+ack
+bat
+cloc
+diff-so-fancy
+direnv
+entr
+ffmpeg
+htop
+jq
+nmap
+xmlstarlet

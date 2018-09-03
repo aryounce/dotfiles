@@ -1,0 +1,43 @@
+[user]
+	name = <Name>
+	email = <Email>
+
+[core]
+	excludesfile = ~/.gitignore-global
+	autocrlf = input
+	safecrlf = true
+	whitespace = fix,space-before-tab,tab-in-indent,trailing-space
+	quotepath = false
+
+[pager]
+	diff = diff-so-fancy | less --tabs=1,5 -RFX
+	show = diff-so-fancy | less --tabs=1,5 -RFX
+
+[log]
+	date = format-local:%a %B %d, %Y @ %r [%Z]
+	decorate = full
+
+[alias]
+	ll = log --name-status
+	l1 = log --name-status -n 1
+	ci = commit
+	df = diff
+	dt = difftool
+	dts = difftool --staged
+	dc = diff --cached
+	s = status
+
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+
+[push]
+	default = nothing
+
+[difftool]
+	prompt = false
+
+[mergetool]
+	prompt = false

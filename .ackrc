@@ -1,0 +1,2 @@
+# Skip virtualenv directories that are a part of the project.
+--ignore-dir=venv
