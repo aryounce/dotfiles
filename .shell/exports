@@ -4,6 +4,9 @@ export MANPAGER="less -X"
 export HISTSIZE=5000
 export HISTCONTROL=ignoreboth
 
+### macOS Catalina shell nonsense.
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
 ### Sublime Text integration
 export EDITOR="${HOME}/.bin/subl -w -s"
 export VISUAL="${HOME}/.bin/subl -w -s"

@@ -10,11 +10,21 @@ alias l='ls -CF'
 # For when we're mucking with bash settings
 alias br='source ~/.bash_profile'
 
-# You know you do it too
-alias sduo='sudo'
-alias suod='sudo'
-
 # Shortcuts
 alias curl-get='curl -L -O'
-alias h='history'
 alias rot13='tr a-zA-Z n-za-mN-ZA-M'
+
+# macOS
+alias dnsflush="dscacheutil -flushcache"
+
+### macOS Homebrew
+
+function brew-install-bookmarks()
+{
+    brew install `cat ~/.shell/homebrew-bookmarks.txt | tr '\n' ' '`
+}
+
+function brew-upgrade-bookmarks()
+{
+    brew upgrade `cat ~/.shell/homebrew-bookmarks.txt | tr '\n' ' '`
+}

@@ -16,3 +16,5 @@ done
 shopt -s nocaseglob
 shopt -s histappend
 shopt -s checkwinsize
+
+## SSH aliases are in ~/.ssh/config
