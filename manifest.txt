@@ -1,0 +1,10 @@
+.bashrc
+.bash_profile
+.ackrc
+.sqliterc
+.shell/aliases
+.shell/bash_prompt
+.shell/exports
+.shell/paths
+.shell/git-completion.bash
+.shell/homebrew-bookmarks.txt
