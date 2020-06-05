@@ -29,6 +29,15 @@ do
     # Skip lines that start with '#'
     [[ "${dotfile:0:1}" == "#" ]] && continue
 
+    # Copy files mentioned in the manifest that exist in $HOME, but are not
+    # part of the repo (or have been deleted).
+    if [[ ! -e ${dotfile} ]];
+    then
+        echo "Copying missing file in manifest from \$HOME into repo: ${dotfile}"
+        cp ~/${dotfile} ${dotfile}
+        continue
+    fi
+
     diff -q $dotfile ~/${dotfile} 2> /dev/null
 
     if [[ $? != 0 ]];
