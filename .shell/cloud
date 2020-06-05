@@ -1,0 +1,52 @@
+### Google Cloud Platform
+
+function install-gcp-sdk() {
+    if [[ -x ~/.bin/google-cloud-sdk/install.sh ]];
+    then
+        echo ">>> Google Cloud SDK already installed, running update."
+        gcloud components update
+        return
+    fi
+
+    _gcp_sdk_version=${GCP_SDK_TARGET_VERSION-295.0.0}
+    _gcp_sdk_os=`uname -s | tr '[:upper:]' '[:lower:]'`
+    _gcp_sdk_arch=`uname -m | tr '[:upper:]' '[:lower:]'`
+
+    echo ">>> Downloading GCP SDK install package."
+    mkdir -p ~/.bin/ && cd ~/.bin/
+
+    curl -O --progress-bar "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${_gcp_sdk_version}-${_gcp_sdk_os}-${_gcp_sdk_arch}.tar.gz"
+
+    [[ $? != 0 ]] && \
+        echo "Download failed." && \
+        exit 1
+
+    echo -n ">>> Extracting GCP SDK install package... "
+
+    tar zxmf google-cloud-sdk-${_gcp_sdk_version}-${_gcp_sdk_os}-${_gcp_sdk_arch}.tar.gz
+    echo "done"
+
+    # We disable updating the completions or PATH because those files are already
+    # setup to be sourced by this file.
+    echo ">>> Running GCP SDK install script."
+    ./google-cloud-sdk/install.sh --quiet --command-completion false --path-update false --rc-path /dev/null
+
+    # Ensure we've included the latest versions of the auto-completions by
+    # reloading this file.
+    source ~/.shell/cloud
+
+    rm google-cloud-sdk-${_gcp_sdk_version}-${_gcp_sdk_os}-${_gcp_sdk_arch}.tar.gz
+    cd - >> /dev/null
+}
+
+# Update PATH for the Google Cloud SDK.
+if [ -f ~/.bin/google-cloud-sdk/path.bash.inc ];
+then
+    source ~/.bin/google-cloud-sdk/path.bash.inc
+fi
+
+# Enable shell command completion for gcloud.
+if [ -f ~/.bin/google-cloud-sdk/completion.bash.inc ];
+then
+    source ~/.bin/google-cloud-sdk/completion.bash.inc
+fi

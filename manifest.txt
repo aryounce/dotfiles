@@ -4,6 +4,7 @@
 .sqliterc
 .shell/aliases
 .shell/bash_prompt
+.shell/cloud
 .shell/exports
 .shell/paths
 .shell/git-completion.bash
