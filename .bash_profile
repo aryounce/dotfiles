@@ -6,7 +6,7 @@
 [[ -e ~/.shell/manpaths ]] && MANPATH=$(tr -s '\n' ':' < ~/.shell/manpaths):${MANPATH}
 
 # Load all shell configs
-for file in bash_prompt exports aliases functions extra; do
+for file in bash_prompt exports aliases functions cloud extra; do
   file="${HOME}/.shell/${file}"
   [[ -e "${file}" ]] && source "${file}"
 done
