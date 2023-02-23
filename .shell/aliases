@@ -16,15 +16,3 @@ alias rot13='tr a-zA-Z n-za-mN-ZA-M'
 
 # macOS
 alias dnsflush="dscacheutil -flushcache"
-
-### macOS Homebrew
-
-function brew-install-bookmarks()
-{
-    brew install `cat ~/.shell/homebrew-bookmarks.txt | tr '\n' ' '`
-}
-
-function brew-upgrade-bookmarks()
-{
-    brew upgrade `cat ~/.shell/homebrew-bookmarks.txt | tr '\n' ' '`
-}
