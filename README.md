@@ -1,4 +1,4 @@
-A. R. Younce's dotfiles
+dotfiles by @aryounce
 =======================
 
-More to come.
+*Partially* annotated configuration files for the bash shell and other utilities that work on macOS and Linux.
