@@ -1,5 +1,5 @@
 #
-# bash Configuration Entrypoint
+# bash configuration entrypoint for interactive instances
 #
 
 # Load all custom paths and manpaths from ~/.paths and ~/.manpaths
