@@ -16,3 +16,29 @@ alias rot13='tr a-zA-Z n-za-mN-ZA-M'
 
 # macOS
 alias dnsflush="dscacheutil -flushcache"
+
+# Python
+
+function setup-venv()
+{
+    python_bin=$({ which python || which python3; } | tr -d '\n')
+    ${python_bin} -m venv --prompt "${1-venv}" .venv
+}
+
+function venv()
+{
+    for venv_dir in "./venv" "./.venv";
+    do
+        [[ ! -d "${venv_dir}" ]] && continue
+
+        if [[ -z "${VIRTUAL_ENV}" ]];
+        then
+            source "${venv_dir}/bin/activate" && return
+        else
+            deactivate
+            return
+        fi
+    done
+
+    echo "No virtualenv found at: `pwd`"
+}

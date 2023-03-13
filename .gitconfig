@@ -20,12 +20,32 @@
 [alias]
 	ll = log --name-status
 	l1 = log --name-status -n 1
-	ci = commit
+
+	#
+	# Checkout using fzf for branch selection
+	#
+	co = "!git checkout $(git branch --format=\"%(if:notequals=*)%(HEAD)%(then)%(refname:short)%(end)\" | sed '/^[[:space:]]*$/d' | fzf +i --cycle --height ~20% --pointer='→')"
+
+	cm = commit
 	df = diff
 	dt = difftool
 	dts = difftool --staged
 	dc = diff --cached
 	s = status
+	bd = branch -d
+	bD = branch -D
+
+	#
+	# List branches, sorted by last committed date, displaying top-line commit message.
+	#
+	b = branch --sort=-creatordate --color=auto \
+		--format='%(color:green)%(HEAD)%(color:reset) %(if:notequals=*)%(HEAD)%(then)%(color:dim)%(else)%(color:default)%(end)%(align:40)%(refname:short)%(end) %(align:25)%(color:yellow)%(committerdate:relative)%(end)%(color:default)%(objectname:short) %(contents:lines=1)%(color:reset)'
+
+	#
+	# List branches, sorted by last committed date, displaying tracking branch.
+	#
+	bt = branch --sort=-creatordate --color=auto \
+		--format='%(color:green)%(HEAD)%(color:reset) %(if:notequals=*)%(HEAD)%(then)%(color:dim)%(else)%(color:default)%(end)%(align:40)%(refname:short)%(end) %(align:25)%(color:yellow)%(committerdate:relative)%(end) %(color:default)%(objectname:short) %(color:blue)%(upstream:remoteref) %(color:magenta)%(upstream:track)%(color:reset)'
 
 [color "diff"]
 	meta = yellow bold
@@ -36,8 +56,34 @@
 [push]
 	default = nothing
 
+[init]
+	defaultBranch = main
+
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+
+[diff]
+	tool = Kaleidoscope
+
+[difftool "Kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+
 [difftool]
 	prompt = false
+	trustExitCode = true
+
+[merge]
+	tool = Kaleidoscope
+
+[mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustExitCode = true
 
 [mergetool]
 	prompt = false
+
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
