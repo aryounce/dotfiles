@@ -3,11 +3,17 @@
 #
 
 # Load all custom paths and manpaths from ~/.paths and ~/.manpaths
-[[ -e ~/.shell/paths ]] && PATH=${PATH}:$(tr -s '\n' ':' < ~/.shell/paths)
+export STARTING_PATH="${STARTING_PATH-$PATH}"
+
+[[ -e ~/.shell/paths ]] && PATH="${STARTING_PATH}:$(tr -s '\n' ':' < ~/.shell/paths | sed -e "s+~+$HOME+g")"
 [[ -e ~/.shell/manpaths ]] && MANPATH=$(tr -s '\n' ':' < ~/.shell/manpaths):${MANPATH}
 
+# Detect if homebrew is installed and load 'bash-completion@2' if it is.
+[[ $(which brew) ]] && [[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && \
+  source "$(brew --prefix)/etc/profile.d/bash_completion.sh"
+
 # Load all shell configs
-for file in bash_prompt exports aliases functions cloud extra; do
+for file in exports aliases functions cloud extra bash_prompt; do
   file="${HOME}/.shell/${file}"
   [[ -e "${file}" ]] && source "${file}"
 done
