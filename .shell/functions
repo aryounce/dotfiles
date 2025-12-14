@@ -1,0 +1,11 @@
+function shell-diff {
+    shell_dir=~/.shell/
+    dotfiles_dir=~/Projects/dotfiles/.shell
+
+    which ksdiff >> /dev/null && {
+        ksdiff --label "dotfiles" ${dotfiles_dir} ${shell_dir}
+        return
+    }
+
+    diff -y ${dotfiles_dir} ${shell_dir} | ${PAGER}
+}

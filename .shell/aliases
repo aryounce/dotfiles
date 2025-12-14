@@ -10,9 +10,10 @@ alias ns-quick='netstat -a -f inet -p tcp'
 
 # For when we're mucking with bash settings
 alias br='source ~/.bash_profile'
+alias pathdump="echo \${PATH} | tr ':' '\n'"
 
 # Shortcuts
-alias curl-get='curl -L -O'
+alias curl-download='curl -L -O'
 alias rot13='tr a-zA-Z n-za-mN-ZA-M'
 
 # macOS
