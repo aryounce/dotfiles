@@ -1,4 +1,4 @@
-#
-# bash configuration entrypoint for non-interactive instances (scripts)
-#
+##
+## bash configuration entrypoint for non-interactive instances (scripts)
+##
 source "$HOME/.bash_profile"

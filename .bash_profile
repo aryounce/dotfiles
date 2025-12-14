@@ -1,28 +1,38 @@
-#
-# bash configuration entrypoint for interactive instances
-#
+##
+## bash configuration entrypoint for interactive instances
+##
 
+#
 # Load all custom paths and manpaths from ~/.paths and ~/.manpaths
-export STARTING_PATH="${STARTING_PATH-$PATH}"
+#
 
-[[ -e ~/.shell/paths ]] && PATH="${STARTING_PATH}:$(tr -s '\n' ':' < ~/.shell/paths | sed -e "s+~+$HOME+g")"
+# Reset PATH to only include the paths provided by the system.
+[[ -e /etc/paths ]] && PATH=$(tr -s '\n' ':' < /etc/paths)
+
+# Add our own entries to PATH
+[[ -e ~/.shell/paths ]] && PATH=${PATH}$(tr '\n\n' '\n' < ~/.shell/paths | tr -s '\n' ':')
+
+# TODO Clean up MANPATH logic
 [[ -e ~/.shell/manpaths ]] && MANPATH=$(tr -s '\n' ':' < ~/.shell/manpaths):${MANPATH}
 
-# Detect if homebrew is installed and load 'bash-completion@2' if it is.
-[[ $(which brew) ]] && [[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && \
-  source "$(brew --prefix)/etc/profile.d/bash_completion.sh"
-
+#
 # Load all shell configs
-for file in exports aliases functions cloud extra bash_prompt; do
+#
+for file in bash_prompt exports aliases functions dev cloud extra;
+do
   file="${HOME}/.shell/${file}"
   [[ -e "${file}" ]] && source "${file}"
 done
 
+# Load homebrew configs on macOS
+[[ $(uname -s) == "Darwin" ]] && [[ -e ~/.shell/homebrew ]] && {
+  source ~/.shell/homebrew
+}
+
 #
-# General bash configuration, see:
-# https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
+# bash options (see: https://www.gnu.org/software/bash/manual/bash.html#The-Shopt-Builtin)
 #
 
-shopt -s nocaseglob
-shopt -s histappend
-shopt -s checkwinsize
+shopt -s nocaseglob   # Makes filename expansion case-insensitive.
+shopt -s histappend   # The history list will be appended to HISTFILE.
+shopt -s checkwinsize # Updates LINES and COLUMNS after non-builtin execution.
