@@ -1,11 +1,20 @@
 function shell-diff {
+    IFS=$'\n'
+    for dotfile in $(cat ~/.shell/data/dotfiles);
+    do
+        [[ -d ~/${dotfile} ]] || [[ -e ~/${dotfile} ]] && continue
+        echo "Missing dotfile: ${HOME}/${dotfile}"
+    done
+}
+
+function dotshell-diff {
     shell_dir=~/.shell/
-    dotfiles_dir=~/Projects/dotfiles/.shell
+    dotfiles_dir=${DOTFILES-~/Projects/dotfiles/}
 
     which ksdiff >> /dev/null && {
-        ksdiff --label "dotfiles" ${dotfiles_dir} ${shell_dir}
+        ksdiff --label "dotshell-diff" ${dotfiles_dir}/.shell ${shell_dir}
         return
     }
 
-    diff -y ${dotfiles_dir} ${shell_dir} | ${PAGER}
+    diff -y ${dotfiles_dir}/.shell ${shell_dir} | ${PAGER}
 }
