@@ -1,4 +1,12 @@
-### Google Cloud Platform
+#
+# Google Cloud Platform
+#
+
+### SDK Environment Variables
+#
+# See: https://docs.cloud.google.com/sdk/docs/properties#setting_properties_using_environment_variables
+#
+export CLOUDSDK_CORE_DISABLE_USAGE_REPORTING=1
 
 function install-gcp-sdk() {
     if [[ -x ~/.bin/google-cloud-sdk/install.sh ]];
