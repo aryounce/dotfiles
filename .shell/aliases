@@ -6,6 +6,7 @@ alias dh='dirs -v'
 alias ll='ls -GalhF'
 alias la='ls -A'
 alias l='ls -CF'
+alias ns-quick='netstat -a -f inet -p tcp'
 
 # For when we're mucking with bash settings
 alias br='source ~/.bash_profile'
@@ -15,30 +16,4 @@ alias curl-get='curl -L -O'
 alias rot13='tr a-zA-Z n-za-mN-ZA-M'
 
 # macOS
-alias dnsflush="dscacheutil -flushcache"
-
-# Python
-
-function setup-venv()
-{
-    python_bin=$({ which python || which python3; } | tr -d '\n')
-    ${python_bin} -m venv --prompt "${1-venv}" .venv
-}
-
-function venv()
-{
-    for venv_dir in "./venv" "./.venv";
-    do
-        [[ ! -d "${venv_dir}" ]] && continue
-
-        if [[ -z "${VIRTUAL_ENV}" ]];
-        then
-            source "${venv_dir}/bin/activate" && return
-        else
-            deactivate
-            return
-        fi
-    done
-
-    echo "No virtualenv found at: `pwd`"
-}
+alias dnsflush="[[ $(uname -s) == 'Darwin' ]] && dscacheutil -flushcache"
