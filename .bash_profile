@@ -32,7 +32,6 @@ done
 #
 # bash options (see: https://www.gnu.org/software/bash/manual/bash.html#The-Shopt-Builtin)
 #
-
 shopt -s nocaseglob   # Makes filename expansion case-insensitive.
 shopt -s histappend   # The history list will be appended to HISTFILE.
 shopt -s checkwinsize # Updates LINES and COLUMNS after non-builtin execution.
