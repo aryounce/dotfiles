@@ -9,7 +9,7 @@ alias l='ls -CF'
 alias ns-quick='netstat -a -f inet -p tcp'
 
 # For when we're mucking with bash settings
-alias br='source ~/.bash_profile'
+alias br='PATH="/bin:/sbin:/usr/bin:/usr/sbin"; source ~/.bash_profile'
 alias pathdump="echo \${PATH} | tr ':' '\n'"
 
 # Shortcuts
